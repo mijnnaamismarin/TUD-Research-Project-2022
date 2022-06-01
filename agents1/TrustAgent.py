@@ -866,7 +866,7 @@ class TrustAgent(BW4TBrain):
                                     messages = ['.', ': 8/9 rescuers would decide the same.',
                                                 ': 8/9 rescuers would decide the same, because the distance between us is small.']
                                     self._sendMessage('Found ' + vic + ' in ' + self._door['room_name'] + '. \
-                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustphase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
+                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustPhase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
                                                       'RescueBot')
                                     self._suggestion = ['Rescue']
                                     self._waiting = True
@@ -876,7 +876,7 @@ class TrustAgent(BW4TBrain):
                                                 ': 6/9 rescuers would decide the same, because the distance to the drop zone is small and we have around ' + str(
                                                     round((480 - self._second) / 60)) + ' minutes left.']
                                     self._sendMessage('Found ' + vic + ' in ' + self._door['room_name'] + '. \
-                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustphase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
+                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustPhase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
                                                       'RescueBot')
                                     self._suggestion = ['Rescue']
                                     self._waiting = True
@@ -885,7 +885,7 @@ class TrustAgent(BW4TBrain):
                                     messages = ['.', ': 8/9 rescuers would decide the same.',
                                                 ': 8/9 rescuers would decide the same, because critical victims have a higher priority.']
                                     self._sendMessage('Found ' + vic + ' in ' + self._door['room_name'] + '. \
-                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustphase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
+                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustPhase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
                                                       'RescueBot')
                                     self._suggestion = ['Rescue']
                                     self._waiting = True
@@ -895,7 +895,7 @@ class TrustAgent(BW4TBrain):
                                                 ': 6/9 rescuers would decide the same, because we have around ' + str(
                                                     round((480 - self._second) / 60)) + ' minutes left.']
                                     self._sendMessage('Found ' + vic + ' in ' + self._door['room_name'] + '. \
-                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustphase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
+                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustPhase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
                                                       'RescueBot')
                                     self._suggestion = ['Rescue']
                                     self._waiting = True
@@ -904,7 +904,7 @@ class TrustAgent(BW4TBrain):
                                     messages = ['.', ': 6/9 rescuers would decide the same.',
                                                 ': 6/9 rescuers would decide the same, because the distance between us is small.']
                                     self._sendMessage('Found ' + vic + ' in ' + self._door['room_name'] + '. \
-                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustphase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
+                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustPhase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
                                                       'RescueBot')
                                     self._suggestion = ['Rescue']
                                     self._waiting = True
@@ -913,7 +913,7 @@ class TrustAgent(BW4TBrain):
                                     messages = ['.', ': 7/9 rescuers would decide the same.',
                                                 ': 7/9 rescuers would decide the same, because critical victims have a higher priority.']
                                     self._sendMessage('Found ' + vic + ' in ' + self._door['room_name'] + '. \
-                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustphase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
+                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustPhase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
                                                       'RescueBot')
                                     self._suggestion = ['Rescue']
                                     self._waiting = True
@@ -923,7 +923,7 @@ class TrustAgent(BW4TBrain):
                                                 ': 5/9 rescuers would decide the same, because we have around ' + str(
                                                     round((480 - self._second) / 60)) + ' minutes left.']
                                     self._sendMessage('Found ' + vic + ' in ' + self._door['room_name'] + '. \
-                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustphase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
+                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustPhase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
                                                       'RescueBot')
                                     self._suggestion = ['Rescue']
                                     self._waiting = True
@@ -933,7 +933,7 @@ class TrustAgent(BW4TBrain):
                                                 ': 7/9 rescuers would decide the same, because we have around ' + str(
                                                     round((480 - self._second) / 60)) + ' minutes left.']
                                     self._sendMessage('Found ' + vic + ' in ' + self._door['room_name'] + '. \
-                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustphase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
+                                        I suggest to rescue ' + vic + ' instead of continue searching' + messages[0 if self._trustPhase == 0 else 1 if self._trustPhase == 1 else 2] + ' Select your decision using the buttons "Rescue" or "Continue".',
                                                       'RescueBot')
                                     self._suggestion = ['Rescue']
                                     self._waiting = True
