@@ -19,7 +19,9 @@ if __name__ == "__main__":
         choice2=input()
 
         #PAY ATTENTION
-        if choice2=='trust' or choice2=='workload' or choice2=='performance':
+        if choice2=='trust':
+            builder = create_builder(exp_version=choice1,condition="trust")
+        if choice2=='workload' or choice2=='performance':
             print("\nMake sure to add your agents to the agents folder, starting baseline now..")
             print()
             print()
