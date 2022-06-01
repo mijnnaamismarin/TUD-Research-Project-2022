@@ -14,10 +14,10 @@ from matrx.messages.message import Message
 from matrx.messages.message_manager import MessageManager
 from actions1.customActions import RemoveObjectTogether, CarryObjectTogether, DropObjectTogether, CarryObject, Drop
 
-TRUST_LOW_NEGATIVE = 0.10
-TRUST_HIGH_NEGATIVE = 0.15
-TRUST_LOW_POSITIVE = 0.06
-TRUST_HIGH_POSITIVE = 0.10
+TRUST_LOW_NEGATIVE = 0.15
+TRUST_HIGH_NEGATIVE = 0.25
+TRUST_LOW_POSITIVE = 0.1
+TRUST_HIGH_POSITIVE = 0.15
 
 
 class Phase(enum.Enum):
@@ -88,8 +88,8 @@ class TrustAgent(BW4TBrain):
         self._carrying = False
         self._waiting = False
 
-        self._trustValue = 0.5
-        self._trustPhase = 1
+        self._trustValue = 0.25
+        self._trustPhase = 2
         self._confidence = True
 
     def initialize(self):
