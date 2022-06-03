@@ -89,7 +89,7 @@ class BaselineAgent(BW4TBrain):
         self._waiting = False
 
         self._trustValue = 0.25
-        self._trustPhase = 1
+        self._trustPhase = 2
         self._confidence = True
 
     def initialize(self):

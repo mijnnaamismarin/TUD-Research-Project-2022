@@ -20,7 +20,7 @@ class MessageLogger(GridWorldLogger):
             'average_message_length_human': 0,
             'average_message_length_agent': 0,
             'ignored': 0,
-            'trustPhase': 1,
+            'trustPhase': 2,
             'trustValue': 0.25,
             'noIgnored': 0,
             'noSuggestions': 0
