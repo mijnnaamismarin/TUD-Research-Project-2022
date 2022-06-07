@@ -1,2 +1,2 @@
 completeness;score;no_ticks;ignored_suggestions;agent_moves;human_moves;agent_messages;human_messages;agent_idle;human_idle;simultaneous_idle
-0.5;21;4753;0.1;290;444;38;26;1967;3810;1583
+0.625;24;4610;0.17;277;369;34;23;1837;3341;1284
