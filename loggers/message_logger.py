@@ -23,7 +23,12 @@ class MessageLogger(GridWorldLogger):
             'trustPhase': 2,
             'trustValue': 0.25,
             'noIgnored': 0,
-            'noSuggestions': 0
+            'noSuggestions': 0,
+            'workload': 0,
+            'timePressure':0,
+            'taskSeverity':0,
+            'taskSwitch':0,
+            'occupiedTime':0
         }
 
         gwmm = grid_world.message_manager
@@ -49,6 +54,12 @@ class MessageLogger(GridWorldLogger):
                             log_data['noIgnored'] = int(mssg.content.split()[-4])
                             log_data['trustPhase'] = int(mssg.content.split()[-5])
                             log_data['trustValue'] = float(mssg.content.split()[-6])
+                    if 'RescueBot' in mssg.from_id and 'workload' in mssg.content:
+                        log_data['workload'] = mssg.content.split()[-1]
+                        log_data['timePressure'] = mssg.content.split()[-2]
+                        log_data['taskSeverity'] = mssg.content.split()[-3]
+                        log_data['taskSwitch'] = mssg.content.split()[-4]
+                        log_data['occupiedTime'] = mssg.content.split()[-5]
 
         log_data['total_number_messages_human'] = tot_messages_human
         log_data['total_number_messages_agent'] = int(tot_messages_agent / 2)

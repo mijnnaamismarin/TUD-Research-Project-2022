@@ -92,6 +92,17 @@ class BaselineAgent(BW4TBrain):
         self._trustPhase = 2
         self._confidence = True
 
+        self._workload = [0,0,1/3,0]
+        self._workloadVal = 0
+        self._explanationChoice = 3
+
+        self._humanLastWorkTick = 0
+        self._humanWorkTime = 0
+        self._humanLastTask = ''
+        self._taskSwitch = 0
+        self._min = 0
+        self._lastSec = 0
+
     def initialize(self):
         self._state_tracker = StateTracker(agent_id=self.agent_id)
         self._navigator = Navigator(agent_id=self.agent_id,
@@ -102,6 +113,11 @@ class BaselineAgent(BW4TBrain):
         return state
 
     def decide_on_bw4t_action(self, state: State):
+        # update time pressure
+        self._updateTimePressure()
+        self._updateTimeOccupied_TaskSeverity_TaskSwitch(state)
+        self._computeWorkload()
+
         self._criticalFound = 0
         self._criticalRescued = 0
         for vic in self._foundVictims:
@@ -166,6 +182,10 @@ class BaselineAgent(BW4TBrain):
         if self._noSuggestions > 0:
             state['rescuebot']['ignored'] = round(self._ignored / self._noSuggestions, 2)
             self._sendMessage('You ignored me ' + str(self._trustValue) + ' ' + str(self._trustPhase) + ' ' + str(self._ignored) + ' ' +  str(self._noSuggestions) + " trustAgentVarPresent " +str(state['rescuebot']['ignored']), 'RescueBot')
+        workloadRound = round(self._workloadVal, 2)
+        self._sendMessage('Your workload is ' +  str(round(self._workload[0],2)) + ' ' + str(round(self._workload[1],2))
+                          + ' ' + str(round(self._workload[2],2)) + ' ' + str(round(self._workload[3],2)) + ' ' +
+                          str(workloadRound), 'RescueBot')
 
         while True:
             if Phase.INTRO0 == self._phase:
@@ -1021,10 +1041,10 @@ class BaselineAgent(BW4TBrain):
                 if self.received_messages_content and self.received_messages_content[-1] == 'Continue':
                     if self.received_messages_content[-1] not in self._suggestion:
                         self._ignored += 1
-                        self._messagesDisregarded += 1
+                        #self._messagesDisregarded += 1
                         self._updateTrust(positiveExperience=False)
                     else:
-                        self._messagesFollowed += 1
+                        #self._messagesFollowed += 1
                         self._updateTrust(positiveExperience=True)
                     self._noSuggestions += 1
                     self._answered = True
@@ -1292,3 +1312,94 @@ class BaselineAgent(BW4TBrain):
         if 'Searching' not in mssg1 and 'Found' not in mssg1:
             if explanation in self._providedExplanations and self._sendMessages[-1] != mssg1:
                 self._sendMessage(mssg2, sender)
+
+    def _computeWorkload(self):
+        # point = np.array([self._workload[0], self._workload[1]])
+        # origin = np.array([0,0])
+        # point11 = np.array([1,1])
+
+        # coognitiveLoad = ( np.linalg.norm(point-origin) -
+        #                    np.linalg.norm(np.cross(origin-point11, point11-point))/np.linalg.norm(origin-point11))\
+        #                  /np.sqrt(2)
+
+        cognitiveLoad = 0.2 * self._workload[0] + 0.8 * self._workload[1]
+        affectiveLoad = 0.5 * self._workload[2] + 0.5 * self._workload[3]
+
+        self._workloadVal =  0.5 * cognitiveLoad + 0.5 * affectiveLoad
+
+        if self._workloadVal > 0.75:
+            self._explanationChoice = 0
+        elif self._workloadVal > 0.5:
+            self._explanationChoice = 1
+        elif self._workloadVal > 0.25:
+            self._explanationChoice = 2
+        else:
+            self._explanationChoice = 3
+
+
+
+
+    def _updateTimePressure(self):
+        second = (0 if self._second is None else self._second)
+
+        if second > self._lastSec:
+
+            self._workload[3] += (second - self._lastSec)/480
+            self._lastSec = second
+        if self._workload[3] > 1:
+            self._workload[3] = 1
+
+    def _changeWorkLoadMsg(self, msg):
+        if msg == 'Remove' or 'Remove alone' or 'Remove together':
+            self._taskSwitch = self._taskSwitch + 1
+            self._workload[2] = 2/3
+            self._humanLastTask = 'remove'
+
+        if msg == 'Rescue':
+            self._taskSwitch = self._taskSwitch + 1
+            self._workload[2] = 3 / 3
+            self._humanLastTask = 'rescue'
+
+    def _updateTimeOccupied_TaskSeverity_TaskSwitch(self, state ):
+        self._second = int(0 if self._second is None else self._second)
+
+        if self._second > 0:
+            if self._second / 60 > self._min:
+                self._min += 1
+                self._taskSwitch = 0
+                self._humanWorkTime = 0
+
+        if state[{'is_human_agent':True}]:
+            if state['human'] is not None:
+
+                if state['human']['current_action'] is not None:
+
+
+
+                    if self._humanLastWorkTick != state['human']['current_action_started_at_tick']:
+                        self._humanLastWorkTick = state['human']['current_action_started_at_tick']
+
+                        self._humanWorkTime += state['human']['current_action_duration'] / 10
+                        self._workload[0] = self._humanWorkTime/60
+
+                        if (state['human']['current_action'] == 'MoveSouthEast' or 'MoveWest' or 'MoveNorthEast'
+                            or 'MoveSouth' or 'Move' or 'MoveEast' or 'MoveNorth'or 'MoveNorthWest'):
+                            current = 'move'
+                            self._workload[2] = 1 / 3
+                        elif state['human']['current_action'] == ('RemoveObject' or 'RemoveObjectTogether'):
+                            current = 'remove'
+                            self._workload[2] = 2 / 3
+                        else:
+                            current = 'rescue'
+                            self._workload[2] = 1
+
+
+
+                        if self._humanLastTask != current:
+                            self._humanLastTask = current
+
+                            self._taskSwitch += 1
+
+                            self._workload[1] = self._taskSwitch/ 6
+                            if self._workload[1] > 1:
+                                self._workload[1] = 1
